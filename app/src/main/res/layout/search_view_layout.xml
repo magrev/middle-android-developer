@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.SearchView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:inputType="text"
+    android:maxWidth="9999dp">
 
-    <SearchView
-        android:id="@+id/action_search"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:queryHint="Search" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.SearchView>
