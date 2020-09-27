@@ -1,6 +1,5 @@
 package ru.skillbranch.skillarticles.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Selection
 import android.text.Spannable
@@ -9,10 +8,9 @@ import android.text.method.ScrollingMovementMethod
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.SearchView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.text.getSpans
 import androidx.lifecycle.ViewModelProviders
@@ -20,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.layout_bottombar.*
 import kotlinx.android.synthetic.main.layout_submenu.*
+import kotlinx.android.synthetic.main.search_view_layout.*
 import ru.skillbranch.skillarticles.R
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
 import ru.skillbranch.skillarticles.extensions.setMarginOptionally
@@ -47,7 +46,7 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
 //    private var searchQuery: String? = null
 //    private var isSearching = false
 
-    private var searchView: SearchView? = null
+//    private var searchView: SearchView? = null
 
     private val bgColor by AttrValue(R.attr.colorSecondary)
     private val fgColor by AttrValue(R.attr.colorOnSecondary)
@@ -114,6 +113,7 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
                 SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
+        println("renderSearchPosition: $searchPosition")
     }
 
     override fun clearSearchResult() {
@@ -141,7 +141,7 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
         if (binding.isSearch) {
             menuItem?.expandActionView()
             searchView?.setQuery(binding.searchQuery, false)
-            if(binding.isFocusedSearch) searchView?.requestFocus()
+            if (binding.isFocusedSearch) searchView?.requestFocus()
             else searchView?.clearFocus()
         }
 
@@ -166,6 +166,7 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 viewModel.handleSearch(newText)
+                println("onQueryTextChange: $newText")
                 return true
             }
 
@@ -277,12 +278,12 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
         btn_settings.setOnClickListener { viewModel.handleToggleMenu() }
 
         btn_result_up.setOnClickListener {
-            if (searchView?.hasFocus()!!) searchView!!.clearFocus()
+            if (search_view.hasFocus()) search_view.clearFocus()
             viewModel.handleUpResult()
         }
 
         btn_result_down.setOnClickListener {
-            if (searchView?.hasFocus()!!) searchView!!.clearFocus()
+            if (search_view.hasFocus()) search_view.clearFocus()
             viewModel.handleDownResult()
         }
 
@@ -293,9 +294,9 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
     }
 
     inner class ArticleBinding() : Binding() {
-        var isFocusedSearch:Boolean = false
+        var isFocusedSearch: Boolean = false
         var searchQuery: String? = null
-        private var isSearching = false
+//        private var isSearching = false
 
         private var isLoadingContent by ObserveProb(true)
 
@@ -369,7 +370,7 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
             isDarkMode = data.isDarkMode
 
             if (data.title != null) title = data.title
-            if (data.category != null) title = data.category
+            if (data.category != null) category = data.category
             if (data.categoryIcon != null) categoryIcon = data.categoryIcon as Int
             if (data.content.isNotEmpty()) content = data.content.first() as String
 
@@ -377,12 +378,12 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
             isSearch = data.isSearch
             searchQuery = data.searchQuery
             searchPosition = data.searchPosition
-            searchPosition = data.searchPosition
+            searchResult = data.searchResults
 
         }
 
-        override fun saveUi(outState:Bundle){
-//            outState.putBoolean(::isFocusedSearch.name, search_view?.hasFocus(), ?: false)
+        override fun saveUi(outState: Bundle) {
+            outState.putBoolean(::isFocusedSearch.name, search_view?.hasFocus() ?: false)
         }
 
         override fun restoreUi(savedState: Bundle) {

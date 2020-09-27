@@ -126,10 +126,9 @@ class ArticleViewModel(private val articleId: String) :
     override fun handleSearch(query: String?) {
         query ?: return
         val result = (currentState.content.firstOrNull() as? String).indexesOf(query)
-//            .map { it to it + query.length }
-            .map { it to it }
-
-        updateState { it.copy(searchQuery = query) }
+            .map { it to it + query.length }
+        println("handleSearch result: $result")
+        updateState { it.copy(searchQuery = query, searchResults = result) }
     }
 
     override fun handleShare() {

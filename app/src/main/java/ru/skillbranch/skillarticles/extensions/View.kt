@@ -1,6 +1,8 @@
 package ru.skillbranch.skillarticles.extensions
 
 import android.view.View
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 
 /**
  * Created by Reva on 07.09.2020
