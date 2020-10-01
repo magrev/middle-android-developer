@@ -5,10 +5,6 @@ import ru.skillbranch.skillarticles.ui.delegates.RenderProp
 import ru.skillbranch.skillarticles.viewmodels.base.IViewModelState
 import kotlin.reflect.KProperty
 
-/**
- * Created by Reva on 10.09.2020
- */
-
 abstract class Binding {
     val delegates = mutableMapOf<String, RenderProp<out Any>>()
 
@@ -18,8 +14,11 @@ abstract class Binding {
     abstract fun restoreUi(savedState: Bundle)
 
     @Suppress("UNCHECKED_CAST")
-    fun <A, B, C, D> dependsOn(vararg fields: KProperty<*>, onChange: (A, B, C, D) -> Unit) {
-        check(fields.size == 4) { "Names size must be 4, current ${fields.size}" }
+    fun <A, B, C, D> dependsOn(
+        vararg fields: KProperty<*>,
+        onChange: (A, B, C, D) -> Unit
+    ) {
+        check(fields.size == 4) {"Names size must be 4, current ${fields.size}"}
         val names = fields.map { it.name }
 
         names.forEach {

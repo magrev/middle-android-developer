@@ -41,15 +41,15 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
         val vmFactory = ViewModelFactory("0")
         ViewModelProviders.of(this, vmFactory).get(ArticleViewModel::class.java)
     }
-    override val binding: ArticleBinding by lazy { ArticleBinding() }
+    public override val binding: ArticleBinding by lazy { ArticleBinding() }
 
 //    private var searchQuery: String? = null
 //    private var isSearching = false
 
 //    private var searchView: SearchView? = null
 
-    private val bgColor by AttrValue(R.attr.colorSecondary)
-    private val fgColor by AttrValue(R.attr.colorOnSecondary)
+    val bgColor by AttrValue(R.attr.colorSecondary)
+    val fgColor by AttrValue(R.attr.colorOnSecondary)
 
 
 //    override fun onCreate(savedInstanceState: Bundle?) {

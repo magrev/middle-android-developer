@@ -14,7 +14,7 @@ fun String?.indexesOf(substr: String, ignoreCase: Boolean = true): List<Int> {
         while (this.indexOf(substr, fromIndex, ignoreCase = ignoreCase) > -1) {
             fromIndex = this.indexOf(substr, fromIndex, ignoreCase = ignoreCase)
             list.add(fromIndex)
-            println("Found at => $fromIndex")
+//            println("Found at => $fromIndex")
             fromIndex++
         }
         list
