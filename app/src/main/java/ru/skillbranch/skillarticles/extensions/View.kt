@@ -11,3 +11,12 @@ import androidx.core.view.marginTop
 fun View.setMarginOptionally(top: Int = 0, bottom: Int = 0, left: Int = 0, right: Int = 0) {
 
 }
+
+fun View.setPaddingOptionally(
+    left: Int = paddingLeft,
+    top: Int = paddingLeft,
+    right: Int = paddingRight,
+    bottom: Int = paddingBottom
+) {
+    setPadding(left, top, right, bottom)
+}
